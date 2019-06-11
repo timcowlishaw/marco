@@ -28,7 +28,7 @@ export default class Canvas {
         }
     }
 
-    setTextMode(callback) {
+    setTextMode(callback) { 
         console.log("set mode");
         this.canvas.isDrawingMode = false;
         this.waitingTextArea = true;
@@ -37,13 +37,16 @@ export default class Canvas {
             this.canvas.on("mouse:down", (e) => {
                 if(this.waitingTextArea) {
                     console.log("click");
-                    this.canvas.add(new fabric.IText('Double-click to edit me', {
+                    const text = new fabric.IText('Double-click to edit me', {
                         fontFamily: 'serif',
                         fontWeight: 'bold',
                         fontSize: 18,
                         left: e.pointer.x,
                         top: e.pointer.y
-                    }));
+                    });
+                    this.canvas.add(text);
+                    this.canvas.bringToFront(text);
+                    this.canvas.renderAll();
                     if(callback) {
                         callback();
                     }
@@ -51,6 +54,24 @@ export default class Canvas {
                 this.waitingTextArea = false;
             });
             this.textListenerAdded = true;
+        }
+    }
+
+    addImage(img, callback) {
+        const ratio = Math.min(1, Math.min(this.canvas.width / img.width, this.canvas.height / img.height));
+        const xOffset = (this.canvas.width - ratio * img.width) / 2;
+        const yOffset = (this.canvas.height - ratio * img.height) / 2;
+        const fImg = new fabric.Image(img, {
+            left: xOffset,
+            top: yOffset
+        });
+        fImg.scale(ratio);
+        fImg.filters.push(new fabric.Image.filters.BlackWhite());
+        fImg.applyFilters();
+        this.canvas.setBackgroundImage(fImg);
+        this.canvas.renderAll();
+        if(callback) {
+            callback();
         }
     }
 }
