@@ -1,4 +1,4 @@
-web_client/node_modules
+webapp/node_modules
 .#*
-web_client/dist
+webapp/dist
 .DS_Store
