@@ -1,18 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const nodeExternals = require('webpack-node-externals');
 module.exports = {
     entry: {
-        main: './src/js/main.js'
+        server: './src/server/app.js'
     },
     output:  {
         path: path.join(__dirname, '/dist/'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: 'server.js'
     },
-    target: 'web',
-    devtool: 'source-map',
+    target: 'node',
+    node: {
+        __dirname: false,
+        __filename: false
+    },
+    externals: [nodeExternals()],
     module: {
         rules: [
             {
@@ -22,12 +25,5 @@ module.exports = {
                 use: { loader: 'babel-loader'}
             }
         ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "Marco",
-            filename: "./index.html",
-            template: "./src/templates/index.html"
-        })
-    ]
-};
+    }
+}
