@@ -74,5 +74,13 @@ export default class Canvas {
             callback();
         }
     }
+
+    toDataURL() {
+        return this.canvas.toDataURL();
+    }
+
+    clear() {
+        this.canvas.clear();
+    }
 }
 

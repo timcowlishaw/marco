@@ -1,4 +1,5 @@
 webapp/node_modules
 .#*
 webapp/dist
+webapp/data
 .DS_Store
