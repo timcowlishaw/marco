@@ -29,14 +29,11 @@ export default class Canvas {
     }
 
     setTextMode(callback) { 
-        console.log("set mode");
         this.canvas.isDrawingMode = false;
         this.waitingTextArea = true;
         if(!this.textListenerAdded) {
-            console.log("adding listener");
             this.canvas.on("mouse:down", (e) => {
                 if(this.waitingTextArea) {
-                    console.log("click");
                     const text = new fabric.IText('Double-click to edit me', {
                         fontFamily: 'serif',
                         fontWeight: 'bold',

@@ -4,7 +4,6 @@ export default class Buttons {
     constructor(container, canvas) {
         this.container = container;
         this.canvas = canvas;
-        console.log(this.container);
         this.container.querySelector("#edit_button").addEventListener("change", () => {
             canvas.setEditMode();
         });
@@ -19,7 +18,7 @@ export default class Buttons {
         this.container.querySelector("#file_button").addEventListener("change", () => {
             this.addImage();
         });
-        this.container.querySelector("#upload_button").addEventListener("mouseup", () => {
+        this.container.querySelector("#upload_button").addEventListener("click", () => {
             this.uploadImage();
         });
     }
@@ -52,7 +51,7 @@ export default class Buttons {
         const screenId = screenField.value;
         const canvasData = this.canvas.toDataURL();
         axios.post(`/send/${screenId}`, { data: canvasData }).then(() => {
-            //this.canvas.clear();
+            this.canvas.clear();
         });
     }
 }
