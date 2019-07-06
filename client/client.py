@@ -27,6 +27,8 @@ def check_image_updated(png):
         with open(TMP_PATH, "rb") as f:
             last_png = f.read()
             return md5_digest(png) != md5_digest(last_png)
+    else:
+        return True
 
 
 def update_temp_image(png):
