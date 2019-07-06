@@ -1,0 +1,3 @@
+[submodule "client/lib/e-Paper"]
+	path = client/lib/e-Paper
+	url = git@github.com:waveshare/e-Paper.git
