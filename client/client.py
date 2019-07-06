@@ -3,7 +3,7 @@
 
 import sys
 import os
-DRY_RUN = os.environ.get("MARC_DRY_RUN", "false").lower() == "false"
+DRY_RUN = os.environ.get("MARCO_DRY_RUN", "false").lower() == "false"
 if not DRY_RUN:
     sys.path.append(r'./lib/e-Paper/Raspberry Pi/python2/lib')
     import epd4in2
@@ -42,6 +42,26 @@ def update_screen(png):
     epd.init()
     epd.Clear()
     epd.display(epd.getbuffer(image))
+
+    from PIL import ImageDraw, ImageFont
+    font18 = ImageFont.truetype('../lib/Font.ttc', 18)
+    Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+    draw = ImageDraw.Draw(Limage)
+    draw.text((2, 0), 'hello world', font = font18, fill = 0)
+    draw.text((2, 20), '4.2inch epd', font = font18, fill = 0)
+    draw.text((20, 50), u'微雪电子', font = font18, fill = 0)
+    draw.line((10, 90, 60, 140), fill = 0)
+    draw.line((60, 90, 10, 140), fill = 0)
+    draw.rectangle((10, 90, 60, 140), outline = 0)
+    draw.line((95, 90, 95, 140), fill = 0)
+    draw.line((70, 115, 120, 115), fill = 0)
+    draw.arc((70, 90, 120, 140), 0, 360, fill = 0)
+    draw.rectangle((10, 150, 60, 200), fill = 0)
+    draw.chord((70, 150, 120, 200), 0, 360, fill = 0)
+    epd.display(epd.getbuffer(Limage))
+
+
+
     epd.sleep()
 
 if __name__ == "__main__":
