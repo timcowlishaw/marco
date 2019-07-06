@@ -3,13 +3,14 @@
 
 import sys
 import os
+import time
 DRY_RUN = os.environ.get("MARCO_DRY_RUN", "false").lower() == "true"
 FORCE_UPDATE = os.environ.get("MARCO_FORCE_UPDATE", "false").lower() == "true"
 if not DRY_RUN:
     sys.path.append(r'./lib/e-Paper/Raspberry Pi/python2/lib')
     import epd4in2
     import epdconfig
-from PIL import Image
+from PIL import Image, ImageOps
 import requests
 import hashlib
 SERVER_URL = os.environ["MARCO_SERVER_URL"]
@@ -39,12 +40,14 @@ def update_temp_image(png):
 
 def update_screen(png):
     epd = epd4in2.EPD()
-    image = Image.open(TMP_PATH)
-    r,g,b,a=image.split()
-    image = Image.merge("RGB", (r, g, b))
+    image = Image.new('1', (epd.width, epd.height), 255)
+    png = Image.open(TMP_PATH)
+    r, g, b, a = png.split()
+    image.paste(ImageOps.invert(a), (0, 0))
     epd.init()
     epd.Clear()
     epd.display(epd.getbuffer(image))
+    time.sleep(2)
     epd.sleep()
 
 if __name__ == "__main__":
