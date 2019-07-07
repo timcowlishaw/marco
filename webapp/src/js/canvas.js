@@ -63,6 +63,7 @@ export default class Canvas {
             top: yOffset
         });
         fImg.scale(ratio);
+        fImg.filters.push(new fabric.Image.filters.Resize({scaleX: ratio, scaleY:ratio}));
         fImg.filters.push(new fabric.Image.filters.BlackWhite());
         fImg.applyFilters();
         this.canvas.setBackgroundImage(fImg);
