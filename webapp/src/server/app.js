@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/send/:screenId", (req, res) => {
-    const screenId = req.params["screenId"];
+    const screenId = req.params["screenId"].toLowerCase();
     const body = req.body;
     const id = uuidv4();
     const timestamp = Math.floor(Date.now() / 1000);
