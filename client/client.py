@@ -40,13 +40,12 @@ def update_temp_image(png):
 
 def update_screen(png):
     epd = epd4in2.EPD()
-    image = Image.new('1', (epd.width, epd.height), 255)
+    image = Image.new('RGBA', (epd.width, epd.height), (255, 255, 255, 255))
     png = Image.open(TMP_PATH)
-    r, g, b, a = png.split()
-    image.paste(ImageOps.invert(a), (0, 0))
+    image = Image.alpha_composite(image, png)
     epd.init()
     epd.Clear()
-    epd.display(epd.getbuffer(image))
+    epd.display(epd.getbuffer(image.convert("1")))
     time.sleep(2)
     epd.sleep()
 
