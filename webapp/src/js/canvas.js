@@ -3,6 +3,7 @@ import {fabric} from "fabric";
 export default class Canvas {
     constructor(element, width, height) {
         this.element = element;
+        this.blank = true;
         const canvas = new fabric.Canvas(element);
         canvas.setWidth(width);
         canvas.setHeight(height);
@@ -23,6 +24,9 @@ export default class Canvas {
         this.canvas.freeDrawingBrush = new fabric['PencilBrush'](this.canvas);
         this.canvas.freeDrawingBrush.color = 'Black';
         this.canvas.freeDrawingBrush.width = 4;
+        this.canvas.on("path:created", () => {
+            this.blank = false;
+        });
         if(callback) {
             callback();
         }
@@ -44,6 +48,7 @@ export default class Canvas {
                     this.canvas.add(text);
                     this.canvas.bringToFront(text);
                     this.canvas.renderAll();
+                    this.blank = false;
                     if(callback) {
                         callback();
                     }
@@ -68,6 +73,7 @@ export default class Canvas {
         fImg.applyFilters();
         this.canvas.setBackgroundImage(fImg);
         this.canvas.renderAll();
+        this.blank = false;
         if(callback) {
             callback();
         }
@@ -78,6 +84,7 @@ export default class Canvas {
     }
 
     clear() {
+        this.blank = true;
         this.canvas.clear();
     }
 }

@@ -47,11 +47,13 @@ export default class Buttons {
     }
 
     uploadImage() {
-        const screenField = this.container.querySelector("#screen_field");
-        const screenId = screenField.value;
-        const canvasData = this.canvas.toDataURL();
-        axios.post(`/send/${screenId}`, { data: canvasData }).then(() => {
-            this.canvas.clear();
-        });
+        if(!this.canvas.blank) {
+            const screenField = this.container.querySelector("#screen_field");
+            const screenId = screenField.value;
+            const canvasData = this.canvas.toDataURL();
+            axios.post(`/send/${screenId}`, { data: canvasData }).then(() => {
+                this.canvas.clear();
+            });
+        }
     }
 }
