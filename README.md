@@ -29,3 +29,4 @@ To make it automatically update every 5 minutes, add something like this to your
 
 Bear in mind there's absolutely no security or authentication built in - putting the web interface behind some sort of auth mechanism would be a good idea if it lives on the open internet. Use at your own risk!
 
+Licenced under the [GNU GPL v3!](LICENCE.txt)
