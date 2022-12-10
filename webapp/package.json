@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "base64-img": "^1.0.4",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "fabric": "^3.1.0",
         "sqlite3": "^4.0.9",
         "uuid": "^3.3.2"
